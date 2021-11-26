@@ -208,9 +208,12 @@ layout_page_begin();
 	if( access_has_bug_level( config_get( 'update_bug_assign_threshold', config_get( 'update_bug_threshold' ) ), $f_bug_id ) ) {
 		$t_suggested_handler_id = $t_bug->handler_id;
 
-		if( $t_suggested_handler_id == NO_USER && access_has_bug_level( config_get( 'handle_bug_threshold' ), $f_bug_id ) ) {
+		// TESTERS
+		// we don't need assign issues to a moderator
+		/*if( $t_suggested_handler_id == NO_USER && access_has_bug_level( config_get( 'handle_bug_threshold' ), $f_bug_id ) ) {
 			$t_suggested_handler_id = $t_current_user_id;
 		}
+		*/
 
 ?>
 <!-- Assigned To -->
