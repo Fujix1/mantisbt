@@ -749,7 +749,7 @@ function layout_print_sidebar( $p_active_sidebar_page = null ) {
 			'icon' => 'fa-retweet',
 			'access_level' => config_get( 'view_changelog_threshold' )
 		);
-
+/*
 		# Roadmap Page
 		$t_sidebar_items[] = array(
 			'url' => 'roadmap_page.php',
@@ -757,7 +757,7 @@ function layout_print_sidebar( $p_active_sidebar_page = null ) {
 			'icon' => 'fa-road',
 			'access_level' => config_get( 'roadmap_view_threshold' )
 		);
-
+*/
 		# Summary Page
 		$t_sidebar_items[] = array(
 			'url' => 'summary_page.php',
