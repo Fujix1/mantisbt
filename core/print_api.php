@@ -1290,15 +1290,19 @@ function print_formatted_priority_string( BugData $p_bug ) {
  */
 function print_formatted_severity_string( BugData $p_bug ) {
 	$t_sev_str = get_enum_element( 'severity', $p_bug->severity, auth_get_current_user_id(), $p_bug->project_id );
-	$t_severity_threshold = config_get( 'severity_significant_threshold' );
+	//$t_severity_threshold = config_get( 'severity_significant_threshold' );
 
-	if( $t_severity_threshold >= 0 &&
+	// TESTERS
+	// Removed dependency on severity value for appearance
+	/*	if( $t_severity_threshold >= 0 &&
 		$p_bug->severity >= $t_severity_threshold &&
 		$p_bug->status < config_get( 'bug_closed_status_threshold' ) ) {
 		echo '<span class="bold">' . $t_sev_str . '</span>';
 	} else {
 		echo $t_sev_str;
 	}
+	*/
+	echo '<span class="p-severity p-severity--'.$p_bug->severity.'">'.$t_sev_str.'</span>';
 }
 
 /**
