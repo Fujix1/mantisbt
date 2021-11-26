@@ -1472,11 +1472,15 @@ function print_column_last_updated( BugData $p_bug, $p_columns_target = COLUMNS_
 	$t_last_updated = string_display_line( date( config_get( 'short_date_format' ), $p_bug->last_updated ) );
 
 	echo '<td class="column-last-modified">';
+	// TESTERS
+	// Alter date view
+	/*
 	if( $p_bug->last_updated > strtotime( '-' . $g_filter[FILTER_PROPERTY_HIGHLIGHT_CHANGED] . ' hours' ) ) {
 		printf( '<span class="bold">%s</span>', $t_last_updated );
 	} else {
 		echo $t_last_updated;
-	}
+	}*/
+	echo Testers::testers_date_ex(config_get( 'short_date_format' ),$p_bug->last_updated);
 	echo '</td>';
 }
 
@@ -1489,8 +1493,11 @@ function print_column_last_updated( BugData $p_bug, $p_columns_target = COLUMNS_
  * @access public
  */
 function print_column_date_submitted( BugData $p_bug, $p_columns_target = COLUMNS_TARGET_VIEW_PAGE ) {
-	$t_date_submitted = string_display_line( date( config_get( 'short_date_format' ), $p_bug->date_submitted ) );
-
+	// TESTERS
+	// alter date view
+	//$t_date_submitted = string_display_line( date( config_get( 'short_date_format' ), $p_bug->date_submitted ) );
+	$t_date_submitted = Testers::testers_date_ex(config_get( 'short_date_format' ), $p_bug->date_submitted);
+	
 	echo '<td class="column-date-submitted">', $t_date_submitted, '</td>';
 }
 

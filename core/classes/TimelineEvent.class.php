@@ -64,7 +64,10 @@ class TimelineEvent {
 	 */
 	public function format_timestamp( $p_timestamp ) {
 		$t_normal_date_format = config_get( 'normal_date_format' );
-		return date( $t_normal_date_format, $p_timestamp );
+		// TESTERS
+		// alter date format
+		return Testers::testers_date_ex($t_normal_date_format, $p_timestamp);
+		//return date( $t_normal_date_format, $p_timestamp );
 	}
 
 	/**

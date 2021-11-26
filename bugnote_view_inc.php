@@ -167,7 +167,12 @@ $t_block_icon = $t_collapse_block ? 'fa-chevron-down' : 'fa-chevron-up';
 		</p>
 		<p class="no-margin small lighter">
 			<?php print_icon( 'fa-clock-o', 'grey' ); ?>
-			<?php echo date( $t_normal_date_format, $t_activity['timestamp'] ); ?>
+			<?php
+				// TESTERS
+				// alter date output
+				echo Testers::testers_date_ex($t_normal_date_format, $t_activity['timestamp'] );
+			?>
+			<?php //echo date( $t_normal_date_format, $t_activity['timestamp'] ); ?>
 			<?php if( $t_activity['private'] ) { ?>
 				&#160;&#160;
 				<?php print_icon( 'fa-eye', 'red' ); ?>

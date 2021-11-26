@@ -257,10 +257,16 @@ if( $t_show_id || $t_show_project || $t_show_category || $t_show_view_state || $
 	echo '</td>';
 
 	# Date Submitted
-	echo '<td>', $t_show_date_submitted ? date( config_get( 'normal_date_format' ), $t_bug->date_submitted ) : '', '</td>';
+	// TESTERS
+	// alter date format
+	//echo '<td>', $t_show_date_submitted ? date( config_get( 'normal_date_format' ), $t_bug->date_submitted ) : '', '</td>';
+	echo '<td>', $t_show_date_submitted ? Testers::testers_date_ex(config_get( 'normal_date_format' ), $t_bug->date_submitted) : '', '</td>';
 
 	# Date Updated
-	echo '<td>', $t_show_last_updated ? date( config_get( 'normal_date_format' ), $t_bug->last_updated ) : '', '</td>';
+	// TESTERS
+	// alter date format
+	//echo '<td>', $t_show_last_updated ? date( config_get( 'normal_date_format' ), $t_bug->last_updated ) : '', '</td>';
+	echo '<td>', $t_show_last_updated ? Testers::testers_date_ex(config_get( 'normal_date_format' ), $t_bug->last_updated) : '', '</td>';
 
 	echo '</tr>';
 

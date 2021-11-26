@@ -85,7 +85,10 @@ function print_version_header( $p_version_id ) {
 		$t_release_timestamp = version_get_field( $p_version_id, 'date_order' );
 
 		if( (bool)$t_version_released ) {
-			$t_release_date = lang_get( 'released' ) . ' ' . string_display_line( date( config_get( 'short_date_format' ), $t_release_timestamp ) );
+			// TESTERS
+			// alter date view
+			//$t_release_date = lang_get( 'released' ) . ' ' . string_display_line( date( config_get( 'short_date_format' ), $t_release_timestamp ) );
+			$t_release_date = lang_get( 'released' ) . ' ' . Testers::testers_date_ex(config_get( 'short_date_format' ), $t_release_timestamp);
 		} else {
 			$t_release_date = lang_get( 'not_released' );
 		}

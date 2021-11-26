@@ -152,12 +152,18 @@ class IssueViewPageCommand extends Command {
 
 		$t_flags['created_at_show'] = in_array( 'date_submitted', $t_fields );
 		if( $t_flags['created_at_show'] ) {
-			$t_issue_view['created_at'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['created_at'] ) );
+			// TESTERS
+			// alter date format
+			//$t_issue_view['created_at'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['created_at'] ) );
+			$t_issue_view['created_at'] = Testers::testers_date_ex(config_get( 'normal_date_format' ), strtotime( $t_issue['created_at'] ));
 		}
 
 		$t_flags['updated_at_show'] = in_array( 'last_updated', $t_fields );
 		if( $t_flags['updated_at_show'] ) {
-			$t_issue_view['updated_at'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['updated_at'] ) );
+			// TESTERS
+			// alter date format
+			//$t_issue_view['updated_at'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['updated_at'] ) );
+			$t_issue_view['updated_at'] = Testers::testers_date_ex(config_get( 'normal_date_format' ), strtotime( $t_issue['updated_at'] ));
 		}
 
 		$t_flags['additional_information_show'] =

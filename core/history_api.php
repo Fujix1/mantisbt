@@ -173,7 +173,10 @@ function history_get_events_array( $p_bug_id, $p_user_id = null ) {
 		 */
 		extract( $t_item, EXTR_PREFIX_ALL, 'v' );
 		$t_history[$k] = history_localize_item( $p_bug_id, $v_field, $v_type, $v_old_value, $v_new_value );
-		$t_history[$k]['date'] = date( $t_normal_date_format, $v_date );
+		// TESTERS
+		// alter date
+		//$t_history[$k]['date'] = date( $t_normal_date_format, $v_date );
+		$t_history[$k]['date'] = Testers::testers_date_ex( $t_normal_date_format, $v_date );
 		$t_history[$k]['userid'] = $v_userid;
 		$t_history[$k]['username'] = $v_username;
 	}

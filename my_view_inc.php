@@ -316,7 +316,10 @@ for( $i = 0;$i < $t_count; $i++ ) {
 	$t_bug = $t_rows[$i];
 
 	$t_summary = string_display_line_links( $t_bug->summary );
-	$t_last_updated = date( config_get( 'normal_date_format' ), $t_bug->last_updated );
+	// TESTERS
+	// alter date text
+	//$t_last_updated = date( config_get( 'normal_date_format' ), $t_bug->last_updated );
+	$t_last_updated = Testers::testers_date_ex(config_get( 'normal_date_format' ), $t_bug->last_updated );
 
 	# Check for attachments
 	$t_attachment_count = 0;
