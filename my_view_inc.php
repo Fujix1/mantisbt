@@ -341,8 +341,10 @@ for( $i = 0;$i < $t_count; $i++ ) {
 
 <tr class="my-buglist-bug <?php echo $t_bug_class?>">
 	<?php
-	# -- Bug ID and details link + Pencil shortcut --?>
-	<td class="nowrap width-13 my-buglist-id">
+		// TESTERS
+		// removed width class
+		# -- Bug ID and details link + Pencil shortcut --?>
+		<td class="nowrap my-buglist-id">
 		<?php
 			print_bug_link( $t_bug->id, false );
 
@@ -354,6 +356,9 @@ for( $i = 0;$i < $t_count; $i++ ) {
 			print_icon( 'fa-square', 'fa-status-box ' . $t_status_css, $t_status );
 			echo ' ';
 
+			// TESTERS
+			// cleanup
+			/*
 			if( !bug_is_readonly( $t_bug->id ) && access_has_bug_level( $t_update_bug_threshold, $t_bug->id ) ) {
 				echo '<a class="edit" href="' . string_get_bug_update_url( $t_bug->id ) . '">';
 				print_icon( 'fa-pencil', 'bigger-130 padding-2 grey', lang_get( 'edit' ) );
@@ -374,6 +379,7 @@ for( $i = 0;$i < $t_count; $i++ ) {
 				print_icon( 'fa-paperclip', 'fa-lg grey', $t_alt_text );
 				echo '</a>';
 			}
+			*/
 
 			if( VS_PRIVATE == $t_bug->view_state ) {
 				echo ' ';
