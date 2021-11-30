@@ -230,11 +230,6 @@ function http_security_headers() {
 		http_csp_add( 'script-src', "'self'" );
 		http_csp_add( 'img-src', "'self'" );
 		http_csp_add( 'img-src', "'self' data:" );
-
-		// ALLOW YOUTUBE EMBEDDING
-		http_csp_add( 'img-src', "i.ytimg.com" );
-		http_csp_add( 'frame-src', "www.youtube.com" );
-		http_csp_add( 'frame-src', "youtube.com" );
 		
 		# White list the CDN urls (if enabled)
 		if ( config_get_global( 'cdn_enabled' ) == ON ) {
