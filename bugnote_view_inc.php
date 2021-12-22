@@ -154,142 +154,143 @@ $t_block_icon = $t_collapse_block ? 'fa-chevron-down' : 'fa-chevron-up';
 		}
 ?>
 <tr class="bugnote visible-on-hover-toggle" id="c<?php echo $t_activity['id'] ?>">
-		<td class="category">
-		<div class="pull-left padding-2"><?php print_avatar( $t_activity['user_id'], 'bugnote', 80 ); ?>
-		</div>
-		<div class="pull-left padding-2">
-		<p class="no-margin">
-			<?php
-			print_icon( 'fa-user', 'grey' );
-			echo ' ';
-			print_user( $t_activity['user_id'] );
-			?>
-		</p>
-		<p class="no-margin small lighter">
-			<?php print_icon( 'fa-clock-o', 'grey' ); ?>
-			<?php
-				// TESTERS
-				// alter date output
-				echo Testers::testers_date_ex($t_normal_date_format, $t_activity['timestamp'] );
-			?>
-			<?php //echo date( $t_normal_date_format, $t_activity['timestamp'] ); ?>
-			<?php if( $t_activity['private'] ) { ?>
-				&#160;&#160;
-				<?php print_icon( 'fa-eye', 'red' ); ?>
-				<?php echo lang_get( 'private' ) ?>
-			<?php } ?>
-		</p>
-		<p class="no-margin">
-			<?php
-			if( user_exists( $t_activity['user_id'] ) ) {
-				$t_access_level = access_get_project_level( null, $t_activity['user_id'] );
-				$t_label = layout_is_rtl() ? 'arrowed-right' : 'arrowed-in-right';
-				echo '<span class="label label-sm label-default ' . $t_label . '">', access_level_get_string( $t_access_level ), '</span>';
-			}
-			?>
-			&#160;
-			<?php if( $t_activity['type'] == ENTRY_TYPE_NOTE ) { ?>
-			<?php print_icon( 'fa-link', 'grey' ); ?>
-			<a rel="bookmark" href="<?php echo string_get_bugnote_view_url( $t_activity['note']->bug_id, $t_activity['note']->id) ?>" class="lighter" title="<?php echo lang_get( 'bugnote_link_title' ) ?>">
-				<?php echo htmlentities( config_get_global( 'bugnote_link_tag' ) ) . $t_activity['id_formatted'] ?>
-			</a>
-			<?php } ?>
-		</p>
-		<?php
-		if( $t_activity['modified'] ) {
-			echo '<p class="no-margin small lighter">';
-			print_icon( 'fa-retweet' );
-			echo ' ' . lang_get( 'last_edited')
+	<?php 
+		// TESTERS
+		// Cleaned up oudated and creepy htmls
+	?>
+	<td class="category">
+		<div class="p-bugnote__user">
+			<div class="p-bugnote__userAvatar">
+				<?php print_avatar( $t_activity['user_id'], 'bugnote', 80 ); ?>
+			</div>
+			<div class="p-bugnote__userInfo">
+				<div class="p-bugnote__userName">
+					<?php
+						print_user( $t_activity['user_id'] );
+					?>
+				</div>
+				<div class="p-bugnote__time">
+					<?php print_icon( 'fa-clock-o', 'grey' );
+						echo Testers::testers_date_ex($t_normal_date_format, $t_activity['timestamp'] );
+					?>
+					<?php if( $t_activity['private'] ) { ?>
+						&#160;&#160;
+					<?php print_icon( 'fa-eye', 'red' ); ?>
+					<?php echo lang_get( 'private' ) ?>
+					<?php } ?>
+				</div>
+
+				<div class="p-bugnote__info">
+					<?php
+					if( user_exists( $t_activity['user_id'] ) ) {
+						$t_access_level = access_get_project_level( null, $t_activity['user_id'] );
+						$t_label = layout_is_rtl() ? 'arrowed-right' : 'arrowed-in-right';
+						echo '<span class="label label-sm label-default ' . $t_label . '">', access_level_get_string( $t_access_level ), '</span>';
+					}
+					?>
+					&#160;
+					<?php if( $t_activity['type'] == ENTRY_TYPE_NOTE ) { ?>
+					<?php print_icon( 'fa-link', 'grey' ); ?>
+					<a rel="bookmark" href="<?php echo string_get_bugnote_view_url( $t_activity['note']->bug_id, $t_activity['note']->id) ?>" class="lighter" title="<?php echo lang_get( 'bugnote_link_title' ) ?>">
+						<?php echo htmlentities( config_get_global( 'bugnote_link_tag' ) ) . $t_activity['id_formatted'] ?>
+					</a>
+					<?php } ?>
+				</div>
+				<?php
+			if( $t_activity['modified'] ) {
+				echo '<div class="p-bugnote__modified">';
+				print_icon( 'fa-retweet' );
+				echo ' ' . lang_get( 'last_edited')
 				. lang_get( 'word_separator' )
 				. date( $t_normal_date_format, $t_activity['last_modified'] )
-				. '</p>';
-			if( access_can_view_bugnote_revisions( $t_activity['id'] ) ) {
-				$t_revision_count = bug_revision_count( $f_bug_id, REV_BUGNOTE, $t_activity['id'] );
-				if( $t_revision_count >= 1 ) {
-					$t_view_num_revisions_text = sprintf( lang_get( 'view_num_revisions' ), $t_revision_count );
-?>
-		<p class="no-margin">
-			<span class="small bugnote-revisions-link">
-				<a href="bug_revision_view_page.php?bugnote_id=<?php echo $t_activity['id'] ?>">
-					<?php echo $t_view_num_revisions_text ?>
-				</a>
-			</span>
-		</p>
-<?php
+				. '</div>';
+				if( access_can_view_bugnote_revisions( $t_activity['id'] ) ) {
+					$t_revision_count = bug_revision_count( $f_bug_id, REV_BUGNOTE, $t_activity['id'] );
+					if( $t_revision_count >= 1 ) {
+						$t_view_num_revisions_text = sprintf( lang_get( 'view_num_revisions' ), $t_revision_count );
+						?>
+			<div class="p-bugnote__revision">
+				<span class="small bugnote-revisions-link">
+					<a href="bug_revision_view_page.php?bugnote_id=<?php echo $t_activity['id'] ?>">
+						<?php echo $t_view_num_revisions_text ?>
+					</a>
+				</span>
+			</div>
+			<?php
+					}
 				}
 			}
-		}
-		?>
-		<div class="clearfix"></div>
-		<div class="space-2"></div>
-		<div class="btn-group visible-on-hover">
-		<?php
-			# show edit button if the user is allowed to edit this bugnote
-			if( $t_activity['can_edit'] ) {
-				echo '<div class="pull-left">';
-				print_form_button(
-					'bugnote_edit_page.php',
-					lang_get( 'edit' ),
-					array( 'bugnote_id' => $t_activity['id'] ),
-					OFF );
-				echo '</div>';
-			}
-
-			# show delete button if the user is allowed to delete this bugnote
-			if( $t_activity['can_delete'] ) {
-				echo '<div class="pull-left">';
-
-				if( $t_activity['type'] == ENTRY_TYPE_NOTE ) {
-					if ( !isset( $t_security_token_notes_delete ) ) {
-						$t_security_token_notes_delete = form_security_token( 'bugnote_delete' );
-					}
-
+			?>
+			<div class="p-bugnote__buttons btn-group visible-on-hover">
+				<?php
+				# show edit button if the user is allowed to edit this bugnote
+				if( $t_activity['can_edit'] ) {
+					echo '<div class="pull-left">';
 					print_form_button(
-						'bugnote_delete.php',
-						lang_get( 'delete' ),
+						'bugnote_edit_page.php',
+						lang_get( 'edit' ),
 						array( 'bugnote_id' => $t_activity['id'] ),
-						$t_security_token_notes_delete );
-				} else {
-					if ( !isset( $t_security_token_attachments_delete ) ) {
-						$t_security_token_attachments_delete = form_security_token( 'bug_file_delete' );
+						OFF );
+						echo '</div>';
 					}
-
+					
+					# show delete button if the user is allowed to delete this bugnote
 					if( $t_activity['can_delete'] ) {
-						print_link_button( 'bug_file_delete.php?file_id=' . $t_activity['id'] . form_security_param( 'bug_file_delete', $t_security_token_attachments_delete ),
-							lang_get( 'delete' ), 'btn-xs' );
-					}
-				}
+						echo '<div class="pull-left">';
+						
+						if( $t_activity['type'] == ENTRY_TYPE_NOTE ) {
+							if ( !isset( $t_security_token_notes_delete ) ) {
+								$t_security_token_notes_delete = form_security_token( 'bugnote_delete' );
+							}
+							
+							print_form_button(
+								'bugnote_delete.php',
+								lang_get( 'delete' ),
+								array( 'bugnote_id' => $t_activity['id'] ),
+								$t_security_token_notes_delete );
+							} else {
+								if ( !isset( $t_security_token_attachments_delete ) ) {
+									$t_security_token_attachments_delete = form_security_token( 'bug_file_delete' );
+								}
+								
+								if( $t_activity['can_delete'] ) {
+									print_link_button( 'bug_file_delete.php?file_id=' . $t_activity['id'] . form_security_param( 'bug_file_delete', $t_security_token_attachments_delete ),
+									lang_get( 'delete' ), 'btn-xs' );
+								}
+							}
 
-				echo '</div>';
-			}
-
-			# show make public or make private button if the user is allowed to change the view state of this bugnote
-			if( $t_activity['can_change_view_state'] ) {
-				if ( !isset( $t_security_token_state ) ) {
-					$t_security_token_state = form_security_token( 'bugnote_set_view_state' );
-				}
-
-				echo '<div class="pull-left">';
-				if( $t_activity['private'] ) {
-					print_form_button(
-						'bugnote_set_view_state.php',
-						lang_get( 'make_public' ),
-						array( 'private' => '0', 'bugnote_id' => $t_activity['id'] ),
-						$t_security_token_state );
-				} else {
-					print_form_button(
-						'bugnote_set_view_state.php',
-						lang_get( 'make_private' ),
-						array( 'private' => '1', 'bugnote_id' => $t_activity['id'] ),
-						$t_security_token_state );
-				}
-				echo '</div>';
-			}
-		?>
+							echo '</div>';
+						}
+						
+						# show make public or make private button if the user is allowed to change the view state of this bugnote
+						if( $t_activity['can_change_view_state'] ) {
+							if ( !isset( $t_security_token_state ) ) {
+								$t_security_token_state = form_security_token( 'bugnote_set_view_state' );
+							}
+							
+							echo '<div class="pull-left">';
+							if( $t_activity['private'] ) {
+								print_form_button(
+									'bugnote_set_view_state.php',
+									lang_get( 'make_public' ),
+									array( 'private' => '0', 'bugnote_id' => $t_activity['id'] ),
+									$t_security_token_state );
+								} else {
+									print_form_button(
+										'bugnote_set_view_state.php',
+										lang_get( 'make_private' ),
+										array( 'private' => '1', 'bugnote_id' => $t_activity['id'] ),
+										$t_security_token_state );
+									}
+									echo '</div>';
+								}
+								?>
+				</div>
+			</div>
 		</div>
-		</div>
-	</td>
-	<td class="<?php echo $t_activity['style'] ?>">
+	</div>
+</td>
+<td class="<?php echo $t_activity['style'] ?>">
 	<?php
 		if( $t_activity['type'] == ENTRY_TYPE_NOTE ) {
 			$t_add_space = false;
